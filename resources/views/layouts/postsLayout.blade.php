@@ -1,7 +1,8 @@
 <!doctype html>
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-<html lang="en" class="bg-gray-900 text-gray-500 body-font ">
+<html lang="en" class="bg-gray-900 text-gray-500">
+@include('layouts.navbar')
 
 <head>
     <meta charset="utf-8">
@@ -19,23 +20,28 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
-@include('layouts.navbar')
 
+<body >
+    <section class="text-gray-500 body-font bg-gray-900">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-wrap w-full mb-20">
+                <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
+                  
+            </div>
+@if ($errors->any())
 
-        @if ($errors->any())
-            <div>
-                Errors:
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-        @endif
+    Errors:
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+    @endif
 
-            @yield('content')
+    @yield('content')
+    </div>
 
-
-
-</section>
+    </div>
+</body>
 
 </html>
