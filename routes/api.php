@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Resources\CommentResource;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/comments',function(){
+    return CommentResource::collection(Comment::all());
+});
+//Get all comments that have id as their parent
+Route::get('/comments/{id}',function($id){
+    return CommentResource::collection(Comment::where('post_id','=',$id)->get());
 });

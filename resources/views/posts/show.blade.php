@@ -25,6 +25,14 @@
                 <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
             </div>
         </div>
+        <h1>Comments</h1>
+        <div id="app-4">
+            <ol>
+                <li v-for="todo in todos">
+                    @{{ todo . text }}
+                </li>
+            </ol>
+        </div>
         <ul>
             @foreach ($comments as $comment)
                 <li>author: {{ $comment->author_id }} </li>
@@ -32,12 +40,22 @@
                 <li>comment: {{ $comment->comment_content }}</li>
             @endforeach
         </ul>
-    
+
         <div class="container mx-auto flex flex-wrap py-6">
-    
-    
+
+
             <a href="{{ route('comments.create') }}">Create new Comment</a>
     </section>
 
-    
-    @endsection
+    <script>
+        var app4 = new Vue({
+            el: '#app-4',
+            data: {
+                todos: []
+            },
+            mounted(axios.get)
+        })
+
+    </script>
+
+@endsection

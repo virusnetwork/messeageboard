@@ -5,6 +5,7 @@
 @include('layouts.navbar')
 
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -28,15 +29,6 @@
                 <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
                   
             </div>
-@if ($errors->any())
-
-    Errors:
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-    @endif
 
     @yield('content')
     </div>
