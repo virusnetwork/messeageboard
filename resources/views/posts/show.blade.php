@@ -25,14 +25,20 @@
                 <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
             </div>
         </div>
+
         <h1>Comments</h1>
         <div id="app-4">
             <ol>
-                <li v-for="(value,name) in com">
-                    @{{name}}:@{{value}}
-                </li>
-            </ol>
+                <li v-for="value in com">
+                    <div class="border border-gray-800 p-6 rounded-lg">
+                        <h2 class="text-lg text-white font-medium title-font mb-2"> @{{ value.comment_content}}</h2>
+                        <p class="leading-relaxed text-base">by @{{value.author_id}}</p>
+                    </div>
         </div>
+        </li>
+        </ol>
+        </div>
+
         <div class="container mx-auto flex flex-wrap py-6">
 
 
@@ -46,7 +52,7 @@
                 com: []
             },
             mounted() {
-                axios.get("{{ route('comment.parent',$post->id)}}")
+                axios.get("{{ route('comment.parent', $post->id) }}")
                     .then(response => {
                         this.com = response.data.data;
                     })
@@ -55,7 +61,7 @@
                     })
             },
         });
-    
+
     </script>
 
 @endsection
