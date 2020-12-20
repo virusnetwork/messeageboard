@@ -26,4 +26,4 @@ Route::get('/comments', function () {
 //Get all comments that have id as their parent
 Route::get('/comments/{id}', function ($id) {
     return CommentResource::collection(Comment::where('post_id', '=', $id)->get());
-});
+})->name('comment.parent');

@@ -28,8 +28,8 @@
         <h1>Comments</h1>
         <div id="app-4">
             <ol>
-                <li v-for="comments in com">
-                    @{{ com }}
+                <li v-for="(value,name) in com">
+                    @{{name}}:@{{value}}
                 </li>
             </ol>
         </div>
@@ -46,9 +46,9 @@
                 com: []
             },
             mounted() {
-                axios.get("{{ route('api.comments.all') }}")
+                axios.get("{{ route('comment.parent',$post->id)}}")
                     .then(response => {
-                        this.com = response.data;
+                        this.com = response.data.data;
                     })
                     .catch(response => {
                         console.log(response);
