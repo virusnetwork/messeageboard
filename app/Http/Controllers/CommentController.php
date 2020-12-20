@@ -96,4 +96,21 @@ class CommentController extends Controller
     {
         //
     }
+
+    public function apiStore(Request $request)
+    {
+        $validatedData = $request->validate([
+            'comment_content' => 'required|max:255',
+            'post_id' => 'required|integer',
+            'author_id' => 'required|integer',
+        ]);
+
+        $a = new Comment;
+        $a->comment_content = $validatedData['comment_content'];
+        $a->post_id = $validatedData['post_id'];
+        $a->author_id = $validatedData['author_id'];
+        $a->save();
+
+        return $a;
+    }
 }
