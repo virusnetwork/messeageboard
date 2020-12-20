@@ -28,19 +28,11 @@
         <h1>Comments</h1>
         <div id="app-4">
             <ol>
-                <li v-for="todo in todos">
-                    @{{ todo . text }}
+                <li v-for="comments in com">
+                    @{{ com }}
                 </li>
             </ol>
         </div>
-        <ul>
-            @foreach ($comments as $comment)
-                <li>author: {{ $comment->author_id }} </li>
-                <li>image: {{ $comment->image }} </li>
-                <li>comment: {{ $comment->comment_content }}</li>
-            @endforeach
-        </ul>
-
         <div class="container mx-auto flex flex-wrap py-6">
 
 
@@ -51,11 +43,19 @@
         var app4 = new Vue({
             el: '#app-4',
             data: {
-                todos: []
+                com: []
             },
-            mounted(axios.get)
-        })
-
+            mounted() {
+                axios.get("{{ route('api.comments.all') }}")
+                    .then(response => {
+                        this.com = response.data;
+                    })
+                    .catch(response => {
+                        console.log(response);
+                    })
+            },
+        });
+    
     </script>
 
 @endsection

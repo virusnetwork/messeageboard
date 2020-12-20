@@ -20,10 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/comments',function(){
+Route::get('/comments', function () {
     return CommentResource::collection(Comment::all());
-});
+})->name('api.comments.all');
 //Get all comments that have id as their parent
-Route::get('/comments/{id}',function($id){
-    return CommentResource::collection(Comment::where('post_id','=',$id)->get());
+Route::get('/comments/{id}', function ($id) {
+    return CommentResource::collection(Comment::where('post_id', '=', $id)->get());
 });
