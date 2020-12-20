@@ -28,4 +28,4 @@ Route::get('/comments/{id}', function ($id) {
     return CommentResource::collection(Comment::where('post_id', '=', $id)->get());
 })->name('api.comment.parent');
 
-Route::post('comments', 'CommentController@apiStore')->name('api.comments.store');
+Route::post('comments', 'App\Http\Controllers\CommentController@apiStore')->name('api.comments.store');
