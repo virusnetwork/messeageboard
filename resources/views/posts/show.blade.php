@@ -70,9 +70,10 @@
             methods: {
                 newComment: function() {
                     axios.post("{{ route('api.comments.store') }}", {
+                        //TODO support guest accounts
                             comment_content: this.message,
-                            post_id: 1,
-                            author_id: 1
+                            post_id: "{{$post->id}}",
+                            author_id:"{{Auth::id()}}"
                         })
                         .then(response => {
                             this.com.push(response.data);
