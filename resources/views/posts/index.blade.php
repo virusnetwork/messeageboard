@@ -5,7 +5,7 @@
 @section('content')
     @if (session('message'))
         <p><b>{{ session('message') }}</b></p>
-    @endif
+    @endif 
     <div class="flex flex-wrap -m-4">
         @foreach ($posts as $post)
             <div onclick="location.href='/posts/{{$post->id}}';" style="cursor: pointer;" class="xl:w-1/4 md:w-1/2 p-4">
