@@ -55,12 +55,13 @@ class PostController extends Controller
         $a = new Post;
         $a->title = $validatedData['title'];
         $a->content = $validatedData['content'];
-        $a->image = $validatedData['image'];
         $a->user_id = $validatedData['user_id'];
         $a->save();
 
         $imageName = $a->id . '.' . $request->image->extension();
-        $request->image->storeAs('images', $imageName);
+        $a->image_name = $imageName;
+        $a->save();
+        $request->image->storeAs('public', $imageName);
 
         session()->flash('message', 'Post was created');
         return redirect()->route('posts.index');

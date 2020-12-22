@@ -23,8 +23,8 @@
                     </div>
                 </div>
                 <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-                    @if (Storage::disk('public')->exists($post->id.'.jpg'))
-                    <img class="object-cover object-center rounded" alt="hero"src={{Storage::disk('public')->url('24.jpg')}}>
+                    @if (Storage::disk('public')->exists($post->image_name))
+                    <img class="object-cover object-center rounded" alt="hero"src={{Storage::disk('public')->url($post->image_name)}}>
                     @else
                     <img class="object-cover object-center rounded" alt="hero"src={{Storage::disk('public')->url('noImage.jpg')}}>
                     @endif
