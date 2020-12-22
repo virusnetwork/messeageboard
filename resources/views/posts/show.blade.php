@@ -23,7 +23,11 @@
                     </div>
                 </div>
                 <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-                    <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
+                    @if (Storage::disk('public')->exists($post->id.'.jpg'))
+                    <img class="object-cover object-center rounded" alt="hero"src={{Storage::disk('public')->url('24.jpg')}}>
+                    @else
+                    <img class="object-cover object-center rounded" alt="hero"src={{Storage::disk('public')->url('noImage.jpg')}}>
+                    @endif
                 </div>
             </div>
 
@@ -70,10 +74,10 @@
             methods: {
                 newComment: function() {
                     axios.post("{{ route('api.comments.store') }}", {
-                        //TODO support guest accounts
+                            //TODO support guest accounts
                             comment_content: this.message,
-                            post_id: "{{$post->id}}",
-                            author_id:"{{Auth::id()}}"
+                            post_id: "{{ $post->id }}",
+                            author_id: "{{ Auth::id() }}"
                         })
                         .then(response => {
                             this.com.push(response.data);

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Intervention\Image\ImageManagerStatic as Image;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +23,6 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-//TODO add auth to create 
 Route::get('posts', 'App\Http\Controllers\PostController@index')->name('posts.index');
 Route::get('posts/create', 'App\Http\Controllers\PostController@create')->name('posts.create');
 Route::post('posts', 'App\Http\Controllers\PostController@store')->name('posts.store');

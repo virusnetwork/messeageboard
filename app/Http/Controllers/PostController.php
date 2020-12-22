@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -49,8 +50,7 @@ class PostController extends Controller
 
         //return "passed validation";
 
-        $imageName = time().'.'.$request->image->extension();
-        $request->image->storeAs('images', $imageName);
+
 
         $a = new Post;
         $a->title = $validatedData['title'];
@@ -58,6 +58,9 @@ class PostController extends Controller
         $a->image = $validatedData['image'];
         $a->user_id = $validatedData['user_id'];
         $a->save();
+
+        $imageName = $a->id . '.' . $request->image->extension();
+        $request->image->storeAs('images', $imageName);
 
         session()->flash('message', 'Post was created');
         return redirect()->route('posts.index');
