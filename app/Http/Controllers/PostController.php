@@ -42,24 +42,25 @@ class PostController extends Controller
 
         $validatedData = $request->validate([
             'title' => 'required|max:255',
-            'content'=> 'required|max:1000',
-            'image' => 'nullable|image',
+            'content' => 'required|max:1000',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
             'user_id' => 'required|integer',
         ]);
 
         //return "passed validation";
 
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->storeAs('images', $imageName);
+
         $a = new Post;
-        $a->title=$validatedData['title'];
-        $a->content=$validatedData['content'];
-        $a->image=$validatedData['image'];
-        $a->user_id=$validatedData['user_id'];
+        $a->title = $validatedData['title'];
+        $a->content = $validatedData['content'];
+        $a->image = $validatedData['image'];
+        $a->user_id = $validatedData['user_id'];
         $a->save();
 
-        session()->flash('message','Post was created');
+        session()->flash('message', 'Post was created');
         return redirect()->route('posts.index');
-
-        
     }
 
     /**
@@ -71,7 +72,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        $comments = Comment::where('post_id','=',$id)->get();
+        $comments = Comment::where('post_id', '=', $id)->get();
         return view('posts.show', ['post' => $post, 'comments' => $comments]);
     }
 
