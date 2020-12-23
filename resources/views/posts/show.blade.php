@@ -13,7 +13,7 @@
                     class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">{{ $post->title }}
                     </h1>
-                    <h3>By {{ App\Models\User::find($post->user_id)->name }}</h3>
+                    <h3>By {{ App\Models\User::find($post->user_id)->username }}</h3>
                     <p class="mb-8 leading-relaxed">{{ $post->content }}</p>
                     <div class="flex justify-center">
                         <button
@@ -24,9 +24,11 @@
                 </div>
                 <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
                     @if (Storage::disk('public')->exists($post->image_name))
-                    <img class="object-cover object-center rounded" alt="hero"src={{Storage::disk('public')->url($post->image_name)}}>
+                        <img class="object-cover object-center rounded" alt="hero"
+                            src={{ Storage::disk('public')->url($post->image_name) }}>
                     @else
-                    <img class="object-cover object-center rounded" alt="hero"src={{Storage::disk('public')->url('noImage.jpg')}}>
+                        <img class="object-cover object-center rounded" alt="hero"
+                            src={{ Storage::disk('public')->url('noImage.jpg') }}>
                     @endif
                 </div>
             </div>
