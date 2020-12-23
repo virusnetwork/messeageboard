@@ -3,6 +3,7 @@
 @section('title', 'User made Posts')
 
 @section('content')
+ <!--TailwindCSS template taken from https://mertjf.github.io/tailblocks/ -->
     @if (session('message'))
         <p><b>{{ session('message') }}</b></p>
     @endif

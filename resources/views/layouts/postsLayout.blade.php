@@ -1,3 +1,4 @@
+<!--TailwindCSS template taken from https://mertjf.github.io/tailblocks/ -->
 <!doctype html>
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 

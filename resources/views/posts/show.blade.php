@@ -3,6 +3,7 @@
 @section('title', 'post-details')
 
 @section('content')
+ <!--TailwindCSS template taken from https://mertjf.github.io/tailblocks/ -->
 
     <!-- Post Section -->
 
