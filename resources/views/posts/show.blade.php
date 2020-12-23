@@ -16,12 +16,6 @@
                     </h1>
                     <h3>By {{ App\Models\User::find($post->user_id)->username }}</h3>
                     <p class="mb-8 leading-relaxed">{{ $post->content }}</p>
-                    <div class="flex justify-center">
-                        <button
-                            class="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg">Button</button>
-                        <button
-                            class="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg">Button</button>
-                    </div>
                 </div>
                 <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
                     @if (Storage::disk('public')->exists($post->image_name))
