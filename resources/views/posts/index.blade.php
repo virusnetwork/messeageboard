@@ -3,7 +3,7 @@
 @section('title', 'User made Posts')
 
 @section('content')
- <!--TailwindCSS template taken from https://mertjf.github.io/tailblocks/ -->
+    <!--TailwindCSS template taken from https://mertjf.github.io/tailblocks/ -->
     @if (session('message'))
         <p><b>{{ session('message') }}</b></p>
     @endif
@@ -11,12 +11,12 @@
         @foreach ($posts as $post)
             <div onclick="location.href='/posts/{{ $post->id }}';" style="cursor: pointer;" class="xl:w-1/4 md:w-1/2 p-4">
                 <div class=" bg-gray-800 p-6 rounded-lg">
-                    @if ((Storage::disk('public')->exists($post->image_name)))
+                    @if (Storage::disk('public')->exists($post->image_name))
                         <img class="h-40 rounded w-full object-cover object-center mb-6"
-                        src={{Storage::disk('public')->url($post->image_name) }} alt="image">
+                            src={{ Storage::disk('public')->url($post->image_name) }} alt="image">
                     @else
                         <img class="h-40 rounded w-full object-cover object-center mb-6"
-                            src={{Storage::disk('public')->url('noImage.jpg') }} alt="image">
+                            src={{ Storage::disk('public')->url('noImage.jpg') }} alt="image">
                     @endif
 
                     <h3 class="tracking-widest text-purple-500 text-xs font-medium title-font">by
