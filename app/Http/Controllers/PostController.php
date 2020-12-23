@@ -45,7 +45,6 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required|max:1000',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
-            'user_id' => 'required|integer',
         ]);
 
         //return "passed validation";
@@ -55,13 +54,19 @@ class PostController extends Controller
         $a = new Post;
         $a->title = $validatedData['title'];
         $a->content = $validatedData['content'];
-        $a->user_id = $validatedData['user_id'];
+        $a->user_id = auth()->user()->id;
+        if (isset($validatedData['image']))
+        {
+            $imageName = time() . '.' . $request->image->extension();
+            $a->image_name = $imageName;
+            $a->save();
+            $request->image->storeAs('public', $imageName);
+        }
+        
         $a->save();
 
-        $imageName = $a->id . '.' . $request->image->extension();
-        $a->image_name = $imageName;
-        $a->save();
-        $request->image->storeAs('public', $imageName);
+        
+        
 
         session()->flash('message', 'Post was created');
         return redirect()->route('posts.index');
