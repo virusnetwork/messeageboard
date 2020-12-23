@@ -11,13 +11,14 @@
         <nav
             class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700	flex flex-wrap items-center text-base justify-center">
             <a class="mr-5 hover:text-white" href='/posts/'>Posts</a>
-            @if (Auth::check())
-            <a class="mr-5 hover:text-white" href='/dashboard/'>Account</a>
-            @else
-            <a class="mr-5 hover:text-white" href='/register'>Register</a>
-            @endif
-            
-            @unless(!Auth::check())
+            @auth
+                <a class="mr-5 hover:text-white" href='/dashboard/'>Account</a>
+            @endauth
+            @guest
+                <a class="mr-5 hover:text-white" href='/register'>Register</a>
+            @endguest
+
+            @auth
                 <a class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0"
                     href='/posts/create'>New
                     Post
@@ -26,7 +27,7 @@
                         <path d="M5 12h14M12 5l7 7-7 7"></path>
                     </svg>
                 </a>
-            @endunless
+            @endauth
 
         </nav>
     </div>
