@@ -25,9 +25,6 @@
             <button
                 class="text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg">Submit</button>
             <p class="text-xs text-gray-500 mt-3">Please follow and respect code of conduct</p>
-            <p>user: <input type="number" name="user_id" value="{{ old('user_id') }}"></p>
-            <input type="submit" value="Submit">
-            <a herf="{{ route('posts.index') }}">Cancel</a>
         </form>
     </div>
 @endsection
