@@ -8,7 +8,7 @@
         <p><b>{{ session('message') }}</b></p>
     @endif
     <div class="flex flex-wrap -m-4">
-        @foreach ($posts as $post)
+        @foreach ($posts->sortByDesc('created_at') as $post)
             <div onclick="location.href='/posts/{{ $post->id }}';" style="cursor: pointer;" class="xl:w-1/4 md:w-1/2 p-4">
                 <div class=" bg-gray-800 p-6 rounded-lg">
                     @if (Storage::disk('public')->exists($post->image_name))
