@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\UserResource;
+use App\Models\User;
 
 class CommentResource extends JsonResource
 {
@@ -20,6 +22,7 @@ class CommentResource extends JsonResource
             'author_id' => $this->author_id,
             'post_id' => $this->post_id,
             'created_at' => $this->created_at,
+            'author_username' => (User::where('id', '=', $this->author_id)->first()->username),
         ];
     }
 }

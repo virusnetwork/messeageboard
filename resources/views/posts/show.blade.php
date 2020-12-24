@@ -34,7 +34,7 @@
                     <li v-for="value in com">
                         <div class="border border-gray-800 p-6 rounded-lg">
                             <h2 class="text-lg text-white font-medium title-font mb-2"> @{{ value . comment_content }}</h2>
-                            <p class="leading-relaxed text-base">by @{{ value . author_id }}</p>
+                            <p class="leading-relaxed text-base">by @{{ value . author_username}}</p>
                         </div>
             </div>
             </li>
@@ -71,12 +71,12 @@
             methods: {
                 newComment: function() {
                     axios.post("{{ route('api.comments.store') }}", {
-                            //TODO support guest accounts
                             comment_content: this.message,
                             post_id: "{{ $post->id }}",
-                            author_id: "{{ Auth::id() }}"
+                            author_id: "{{ Auth::id() }}",
                         })
                         .then(response => {
+                            response.data.author_username= "{{App\Models\User::find(Auth::id())->username }}"
                             this.com.push(response.data);
                             this.message = ''
                         })
@@ -88,6 +88,7 @@
             mounted() {
                 axios.get("{{ route('api.comment.parent', $post->id) }}")
                     .then(response => {
+                        console.log("{{ route('api.comment.parent', $post->id) }}")
                         this.com = response.data.data;
                     })
                     .catch(response => {
