@@ -1,5 +1,7 @@
 <?php
 
+use App\Mail\signup;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,11 @@ Route::post('posts', 'App\Http\Controllers\PostController@store')->name('posts.s
 ///Comments route
 Route::get('comments/create', 'App\Http\Controllers\CommentController@create')->name('comments.create');
 Route::post('comments', 'App\Http\Controllers\CommentController@store')->name('comments.store');
+
+///emails
+Route::get('testemail', function () {
+   Mail::to(['954581@swansea.ac.uk'])->send(new signup);
+})->name('testemail');
 
 //Show must be the last route
 Route::get('posts/{id}', 'App\Http\Controllers\PostController@show')->name('posts.show');
