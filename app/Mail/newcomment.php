@@ -3,15 +3,16 @@
 namespace App\Mail;
 
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class signup extends Mailable
+class newcomment extends Mailable
 {
-
     public $user;
+    public $post;
     use Queueable, SerializesModels;
 
     /**
@@ -19,9 +20,10 @@ class signup extends Mailable
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, Post $post)
     {
         $this->user = $user;
+        $this->post = $post;
     }
 
     /**
@@ -31,6 +33,6 @@ class signup extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.signup');
+        return $this->view('emails.newcomment');
     }
 }

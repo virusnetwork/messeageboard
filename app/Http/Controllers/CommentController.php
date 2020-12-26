@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\newcomment;
+use App\Models\User;
+use App\Models\Post;
+use Illuminate\Support\Facades\Mail;
 
 class CommentController extends Controller
 {
@@ -49,8 +53,8 @@ class CommentController extends Controller
         $a->author_id = $validatedData['author_id'];
         $a->save();
 
-        session()->flash('message','Comment was created');
-        return redirect()->route('posts.show',$a->post_id);
+        session()->flash('message', 'Comment was created');
+        return redirect()->route('posts.show', $a->post_id);
     }
 
     /**
@@ -111,6 +115,9 @@ class CommentController extends Controller
         $a->post_id = $validatedData['post_id'];
         $a->author_id = $validatedData['author_id'];
         $a->save();
+
+        Mail::to(User::find($a->author_id))->send(new newcomment(User::find($a->author_id), Post::find($a->post_id)));
+
 
         return $a;
     }
