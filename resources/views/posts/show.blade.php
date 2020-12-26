@@ -16,6 +16,19 @@
                     </h1>
                     <h3>By {{ App\Models\User::find($post->user_id)->username }}</h3>
                     <p class="mb-8 leading-relaxed">{{ $post->content }}</p>
+                    @auth
+                        @if (Auth()->user()->role == 'admin')
+
+                            <button type="button" onclick="window.location='{{ URL::route('api.post.delete', $post->id) }}'"
+                                class="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg">Delete</button>
+
+                        @elseif ($post->user_id == Auth()->user()->id)
+                            <button type="button" onclick="window.location='{{ URL::route('api.post.delete', $post->id) }}'"
+                                class="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg">Delete</button>
+
+                        @endif
+                    @endauth
+
                 </div>
                 <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
                     @if (Storage::disk('public')->exists($post->image_name))
@@ -29,24 +42,7 @@
 
 
 
-                @auth
-                    @if (Auth()->user()->role == 'admin')
 
-                        <button
-                            class="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg">Button</button>
-
-                        <button
-                            class="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg">Button</button>
-
-                    @elseif ($post->author_id == Auth()->user()->id)
-                        <button
-                            class="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg">Button</button>
-
-                        <button
-                            class="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg">Button</button>
-                    @endif
-
-                @endauth
 
             </div>
 
@@ -101,7 +97,7 @@
                             author_id: "{{ Auth::id() }}",
                         })
                         .then(response => {
-                            response.data.author_username = "{{Auth()->user()->username ?? 'test'}}"
+                            response.data.author_username = "{{ Auth()->user()->username ?? 'test' }}"
                             this.com.push(response.data);
                             this.message = ''
                         })

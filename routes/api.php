@@ -32,4 +32,6 @@ Route::get('/comments', function ($id) {
     return CommentResource::collection(Comment::where('post_id', '=', $id)->get());
 })->name('api.comment.getUsername');
 
+Route::get('posts/delete/{id}', 'App\Http\Controllers\PostController@destroy')->name('api.post.delete');
+
 Route::post('comments', 'App\Http\Controllers\CommentController@apiStore')->name('api.comments.store');

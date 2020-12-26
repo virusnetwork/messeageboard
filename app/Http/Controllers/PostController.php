@@ -39,7 +39,6 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //dd($request['title']);
-        //TODO fix image upload
 
         $validatedData = $request->validate([
             'title' => 'required|max:255',
@@ -53,18 +52,17 @@ class PostController extends Controller
         $a->title = $validatedData['title'];
         $a->content = $validatedData['content'];
         $a->user_id = auth()->user()->id;
-        if (isset($validatedData['image']))
-        {
+        if (isset($validatedData['image'])) {
             $imageName = time() . '.' . $request->image->extension();
             $a->image_name = $imageName;
             $a->save();
             $request->image->storeAs('public', $imageName);
         }
-        
+
         $a->save();
 
-        
-        
+
+
 
         session()->flash('message', 'Post was created');
         return redirect()->route('posts.index');
@@ -114,6 +112,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        Post::destroy($id);
+        return redirect()->route('posts.index')->with('message', 'Post was deleted');
     }
 }
