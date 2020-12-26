@@ -49,8 +49,6 @@ class PostController extends Controller
 
         //return "passed validation";
 
-
-
         $a = new Post;
         $a->title = $validatedData['title'];
         $a->content = $validatedData['content'];

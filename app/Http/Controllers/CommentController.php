@@ -114,13 +114,4 @@ class CommentController extends Controller
 
         return $a;
     }
-
-    public function getUsername()
-    {
-        if(Auth::check())
-        {
-            return Auth()->user()->id;
-        } else return "";
-       
-    }
 }
