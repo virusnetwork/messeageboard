@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -112,5 +113,14 @@ class CommentController extends Controller
         $a->save();
 
         return $a;
+    }
+
+    public function getUsername()
+    {
+        if(Auth::check())
+        {
+            return Auth()->user()->id;
+        } else return "";
+       
     }
 }

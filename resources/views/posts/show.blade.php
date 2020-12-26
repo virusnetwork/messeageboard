@@ -39,7 +39,7 @@
             </div>
             </li>
             </ol>
-
+            @auth
             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">New Comment</h1>
             <div id="root" class="flex flex-wrap -m-2">
                 <div class="p-2 w-full">
@@ -50,10 +50,13 @@
                     </div>
                 </div>
             </div>
+            
             <div class="p-2 w-full">
                 <button v-on:click="newComment"
                     class="flex mx-auto text-white bg-purple-500 border-0 py-2 px-8 focus:outline-none hover:bg-purple-600 rounded text-lg">Submit</button>
             </div>
+            @endauth
+            
         </div>
 
         <div class="container mx-auto flex flex-wrap py-6">
@@ -76,7 +79,7 @@
                             author_id: "{{ Auth::id() }}",
                         })
                         .then(response => {
-                            response.data.author_username= "{{App\Models\User::find(Auth::id())->username }}"
+                                response.data.author_username= "{{route('api.comment.getUsername')}}"
                             this.com.push(response.data);
                             this.message = ''
                         })
