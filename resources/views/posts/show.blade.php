@@ -63,6 +63,7 @@
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="comment" class="leading-7 text-sm text-gray-400">Message</label>
+                            <p v-if="error" class=" text-white">Enter text to submit a comment</p>
                             <textarea v-model="message" id="comment" name="comment"
                                 class="w-full bg-gray-800 rounded border border-gray-700 focus:border-purple-500 h-32 text-base outline-none text-gray-100 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
                         </div>
@@ -82,16 +83,20 @@
     </section>
 
     <script>
-        var app4 = new Vue({
+        var App = new Vue({
             el: '#root',
             data: {
                 com: [],
                 username: '',
+                error: false,
                 message: '',
             },
             methods: {
                 newComment: function() {
-                    axios.post("{{ route('api.comments.store') }}", {
+                    if (this.message === '') {
+                        this.error = true;
+                    } else {
+                        axios.post("{{ route('api.comments.store') }}", {
                             comment_content: this.message,
                             post_id: "{{ $post->id }}",
                             author_id: "{{ Auth::id() }}",
@@ -104,6 +109,7 @@
                         .catch(response => {
                             console.log(response);
                         })
+                    }
                 }
             },
             mounted() {

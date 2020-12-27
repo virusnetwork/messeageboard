@@ -29,7 +29,11 @@
         <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-wrap w-full mb-20">
                 <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
-
+                    <p class=" text-white">
+                    @if ($errors->any())
+                        {{ implode('', $errors->all(':message ')) }}
+                    @endif
+                    </p>
                 </div>
 
                 @yield('content')
