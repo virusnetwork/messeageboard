@@ -18,17 +18,13 @@
                     <p class="mb-8 leading-relaxed">{{ $post->content }}</p>
                     @auth
                         @if (Auth()->user()->role == 'admin')
-
                             <button type="button" onclick="window.location='{{ URL::route('api.post.delete', $post->id) }}'"
                                 class="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg">Delete</button>
-
                         @elseif ($post->user_id == Auth()->user()->id)
                             <button type="button" onclick="window.location='{{ URL::route('api.post.delete', $post->id) }}'"
                                 class="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg">Delete</button>
-
                         @endif
                     @endauth
-
                 </div>
                 <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
                     @if (Storage::disk('public')->exists($post->image_name))
@@ -39,13 +35,7 @@
                             src={{ Storage::disk('public')->url('noImage.jpg') }}>
                     @endif
                 </div>
-
-
-
-
-
             </div>
-
             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Comments</h1>
             <div>
                 <ol>
@@ -97,18 +87,18 @@
                         this.error = true;
                     } else {
                         axios.post("{{ route('api.comments.store') }}", {
-                            comment_content: this.message,
-                            post_id: "{{ $post->id }}",
-                            author_id: "{{ Auth::id() }}",
-                        })
-                        .then(response => {
-                            response.data.author_username = "{{ Auth()->user()->username ?? 'test' }}"
-                            this.com.push(response.data);
-                            this.message = ''
-                        })
-                        .catch(response => {
-                            console.log(response);
-                        })
+                                comment_content: this.message,
+                                post_id: "{{ $post->id }}",
+                                author_id: "{{ Auth::id() }}",
+                            })
+                            .then(response => {
+                                response.data.author_username = "{{ Auth()->user()->username ?? 'test' }}"
+                                this.com.push(response.data);
+                                this.message = ''
+                            })
+                            .catch(response => {
+                                console.log(response);
+                            })
                     }
                 }
             },
