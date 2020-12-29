@@ -116,7 +116,12 @@ class CommentController extends Controller
         $a->author_id = $validatedData['author_id'];
         $a->save();
 
-        Mail::to(User::find($a->author_id))->send(new newcomment(User::find($a->author_id), Post::find($a->post_id)));
+        Mail::to(User::find($a->author_id))->send(
+            new newcomment(
+                User::find($a->author_id),
+                Post::find($a->post_id)
+            )
+        );
 
 
         return $a;

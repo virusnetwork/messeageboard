@@ -29,6 +29,18 @@ class PostController extends Controller
     {
         return view('posts.create');
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $post = Post::find($id);
+        $comments = Comment::where('post_id', '=', $id)->get();
+        return view('posts.show', ['post' => $post, 'comments' => $comments]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -68,18 +80,7 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $post = Post::find($id);
-        $comments = Comment::where('post_id', '=', $id)->get();
-        return view('posts.show', ['post' => $post, 'comments' => $comments]);
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
